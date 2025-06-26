@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { useState } from "react";
 import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
@@ -8,6 +10,7 @@ function App() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [weather, setWeather] = useState<any>(null);
+  console.log("🚀 ~ App ~ weather:", weather);
   const [history, setHistory] = useState<any[]>([]);
 
   const handleSearch = async () => {
@@ -20,12 +23,13 @@ function App() {
           params: {
             q: `${city}`,
             appid: import.meta.env.VITE_OPEN_WEATHER_MAP_API_KEY,
+            units: "metric",
           },
         }
       );
-      console.log("🚀 ~ handleSearch ~ res:", res)
+      console.log("🚀 ~ handleSearch ~ res:", res);
       const data = res.data;
-      console.log("🚀 ~ handleSearch ~ data:", data)
+      console.log("🚀 ~ handleSearch ~ data:", data);
       setWeather(data);
 
       setHistory([
@@ -33,7 +37,7 @@ function App() {
         ...history,
       ]);
     } catch (error) {
-      console.log("🚀 ~ handleSearch ~ error:", error)
+      console.log("🚀 ~ handleSearch ~ error:", error);
       alert("City not found!");
     }
   };
@@ -45,28 +49,33 @@ function App() {
   };
 
   return (
-    <div>
-      <WeatherSearchBar
-        city={city}
-        country={country}
-        onCityChange={setCity}
-        onCountryChange={setCountry}
-        onSearch={handleSearch}
-        onClear={handleClear}
-      />
-      {weather && (
-        <WeatherDisplay
-          city={weather.name}
-          country={weather.sys.country}
-          main={weather.weather[0].main}
-          description={weather.weather[0].description}
-          tempMin={weather.main.temp_min}
-          tempMax={weather.main.temp_max}
-          humidity={weather.main.humidity}
-          time={new Date(weather.dt * 1000).toLocaleString()}
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-2xl flex flex-col items-center">
+        <WeatherSearchBar
+          city={city}
+          country={country}
+          onCityChange={setCity}
+          onCountryChange={setCountry}
+          onSearch={handleSearch}
+          onClear={handleClear}
         />
-      )}
-      <SearchHistory history={history} onView={() => {}} onDelete={() => {}} />
+        {weather && (
+          <WeatherDisplay
+            city={weather.name}
+            country={weather.sys.country}
+            main={weather.weather[0].main}
+            description={weather.weather[0].description}
+            temp={weather.main.temp}
+            humidity={weather.main.humidity}
+            time={new Date(weather.dt * 1000).toLocaleString()}
+          />
+        )}
+        <SearchHistory
+          history={history}
+          onView={() => {}}
+          onDelete={() => {}}
+        />
+      </div>
     </div>
   );
 }
