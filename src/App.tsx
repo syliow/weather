@@ -8,45 +8,48 @@ import SearchHistory from "./components/SearchHistory";
 
 function App() {
   const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
   const [weather, setWeather] = useState<any>(null);
-  console.log("🚀 ~ App ~ weather:", weather);
   const [history, setHistory] = useState<any[]>([]);
 
-  const handleSearch = async () => {
-    console.log("handleSearch called");
-    if (!city) return;
+  const handleSearch = async (cityParam?: string) => {
+    const searchCity = cityParam || city;
+    if (!searchCity) return;
     try {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather`,
         {
           params: {
-            q: `${city}`,
+            q: `${searchCity}`,
             appid: import.meta.env.VITE_OPEN_WEATHER_MAP_API_KEY,
             units: "metric",
           },
         }
       );
-      console.log("🚀 ~ handleSearch ~ res:", res);
       const data = res.data;
-      console.log("🚀 ~ handleSearch ~ data:", data);
       setWeather(data);
-      setCountry(data.sys.country);
 
       setHistory([
-        { city, country, time: new Date().toLocaleTimeString() },
+        { city: searchCity, time: new Date().toLocaleTimeString() },
         ...history,
       ]);
     } catch (error) {
-      console.log("🚀 ~ handleSearch ~ error:", error);
       alert("City not found!");
     }
   };
 
   const handleClear = () => {
     setCity("");
-    setCountry("");
     setWeather(null);
+  };
+
+  const handleViewHistory = (index: number) => {
+    const item = history[index];
+    setCity(item.city);
+    handleSearch(item.city);
+  };
+
+  const handleDeleteHistory = (index: number) => {
+    setHistory(history => history.filter((_, i) => i !== index));
   };
 
   return (
@@ -57,16 +60,13 @@ function App() {
       <div className="w-full max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
-          country={country}
           onCityChange={setCity}
-          onCountryChange={setCountry}
           onSearch={handleSearch}
           onClear={handleClear}
         />
         {weather && (
           <WeatherToday
             city={weather.name}
-            country={weather.sys.country}
             main={weather.weather[0].main}
             description={weather.weather[0].description}
             temp={weather.main.temp}
@@ -78,8 +78,8 @@ function App() {
             {history.length > 0 && (
               <SearchHistory
                 history={history}
-                onView={() => {}}
-                onDelete={() => {}}
+                onView={handleViewHistory}
+                onDelete={handleDeleteHistory}
               />
             )}
           </WeatherToday>
