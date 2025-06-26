@@ -39,13 +39,14 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
       >
         Search
       </button>
-      <button
+      {/* Hiding the clear button for now */}
+      {/* <button
         type="button"
         onClick={onClear}
         className="px-6 py-4 rounded-2xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] transition-colors duration-200 text-white shadow-lg cursor-pointer"
       >
         Clear
-      </button>
+      </button> */}
     </form>
   );
 };
