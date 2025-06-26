@@ -31,6 +31,7 @@ function App() {
       const data = res.data;
       console.log("🚀 ~ handleSearch ~ data:", data);
       setWeather(data);
+      setCountry(data.sys.country);
 
       setHistory([
         { city, country, time: new Date().toLocaleTimeString() },
@@ -49,8 +50,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-2xl flex flex-col items-center">
+    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/bg-dark.png')" }}>
+      <div className="w-full max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
           country={country}

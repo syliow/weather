@@ -2,57 +2,50 @@ import React from "react";
 
 interface WeatherSearchBarProps {
   city: string;
-  country: string;
   onCityChange: (value: string) => void;
-  onCountryChange: (value: string) => void;
   onSearch: () => void;
   onClear: () => void;
 }
 
 const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
   city,
-  country,
   onCityChange,
-  onCountryChange,
   onSearch,
   onClear,
 }) => {
   return (
     <form
+      className="w-full flex items-center gap-3 mb-6"
       onSubmit={(e) => {
         e.preventDefault();
         onSearch();
       }}
     >
-      <div>
-        <strong>Today's Weather</strong>
-      </div>
-      <div>
-        <label>
-          City:
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => onCityChange(e.target.value)}
-            className="border border-gray-300 rounded px-2 py-2"
-            placeholder="Enter city"
-          />
+      <div className="relative flex-1">
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => onCityChange(e.target.value)}
+          placeholder=" "
+          className="w-full bg-white/10 text-white px-6 py-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-400 placeholder-transparent transition-all duration-200 border-none shadow-lg backdrop-blur-md"
+        />
+        <label className="absolute left-6 top-2 text-xs text-white/70 pointer-events-none transition-all duration-200">
+          City or Country
         </label>
-        <label>
-          Country:
-          <input
-            type="text"
-            value={country}
-            onChange={(e) => onCountryChange(e.target.value)}
-          />
-        </label>
-        <button className="bg-blue-500" type="submit">
-          Search
-        </button>
-        <button type="button" onClick={onClear} className="ml-2 bg-gray-500">
-          Clear
-        </button>
       </div>
+      <button
+        type="submit"
+        className="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white shadow-lg"
+      >
+        Search
+      </button>
+      <button
+        type="button"
+        onClick={onClear}
+        className="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white shadow-lg"
+      >
+        Clear
+      </button>
     </form>
   );
 };
