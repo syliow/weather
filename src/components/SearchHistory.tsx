@@ -26,27 +26,29 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
         {history.map((item, index) => (
           <li
             key={index}
-            className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md"
+            className="flex items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md gap-4"
           >
-            <div className="font-medium text-base mb-2 sm:mb-0">
-              {item.city}
-              {item.country ? `, ${item.country}` : ""}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-4">
+              <div className="font-medium text-base">
+                {item.city}
+                {item.country ? `, ${item.country}` : ""}
+              </div>
               <span className="text-gray-300 text-sm whitespace-nowrap">
                 {item.time}
               </span>
+            </div>
+            <div className="flex items-center gap-2">
               <button
-                className="px-4 py-1 rounded-xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
                 onClick={() => onView(index)}
               >
-                Search
+                1
               </button>
               <button
-                className="px-4 py-1 rounded-xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
                 onClick={() => onDelete(index)}
               >
-                Delete
+                2
               </button>
             </div>
           </li>
