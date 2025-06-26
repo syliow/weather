@@ -3,7 +3,7 @@ import "./index.css";
 import React, { useState } from "react";
 import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
-import WeatherDisplay from "./components/WeatherDisplay";
+import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
 
 function App() {
@@ -50,7 +50,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/bg-dark.png')" }}>
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/bg-dark.png')" }}
+    >
       <div className="w-full max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
@@ -61,21 +64,26 @@ function App() {
           onClear={handleClear}
         />
         {weather && (
-          <WeatherDisplay
+          <WeatherToday
             city={weather.name}
             country={weather.sys.country}
             main={weather.weather[0].main}
             description={weather.weather[0].description}
             temp={weather.main.temp}
+            tempMin={weather.main.temp_min}
+            tempMax={weather.main.temp_max}
             humidity={weather.main.humidity}
             time={new Date(weather.dt * 1000).toLocaleString()}
-          />
+          >
+            {history.length > 0 && (
+              <SearchHistory
+                history={history}
+                onView={() => {}}
+                onDelete={() => {}}
+              />
+            )}
+          </WeatherToday>
         )}
-        <SearchHistory
-          history={history}
-          onView={() => {}}
-          onDelete={() => {}}
-        />
       </div>
     </div>
   );
