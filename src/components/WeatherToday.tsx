@@ -34,29 +34,19 @@ const WeatherToday: React.FC<WeatherTodayProps> = ({
         style={{ filter: "drop-shadow(0 0 40px #FFD70088)" }}
       />
       {/* Weather Info */}
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 z-20">
-        <div className="flex-1 flex flex-col justify-center gap-2 w-full md:w-auto">
-          <div className="text-white text-lg font-semibold mb-2">
-            Today's Weather
-          </div>
-          <div className="flex items-end gap-4">
-            <span className="text-7xl font-extrabold text-white leading-none">
-              {Math.round(temp)}°
-            </span>
-            <div className="flex flex-col text-white/80 text-base font-medium mb-2">
-              <span>
-                H: {Math.round(tempMax)}° L: {Math.round(tempMin)}°
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-wrap md:flex-nowrap gap-x-8 gap-y-2 text-white/80 text-base font-medium mt-2 items-center">
-            <span className="font-bold text-blue-300">
-              {city}, {country}
-            </span>
-            <span>{time}</span>
-            <span>Humidity: {humidity}%</span>
-            <span className="ml-auto md:ml-0">{main}</span>
-          </div>
+      <div className="flex flex-row justify-between items-start gap-4 md:gap-8 z-20 mt-2">
+        {/* Left (Mobile only): Title, Temp, temp High and Low, City name */}
+        <div className="flex flex-col items-start min-w-[120px]">
+          <span className="text-white text-lg font-semibold mb-2">Today's Weather</span>
+          <span className="text-7xl font-extrabold text-white leading-none">{Math.round(temp)}°</span>
+          <span className="text-white/80 text-base font-medium mt-1 mb-1">H: {Math.round(tempMax)}° L: {Math.round(tempMin)}°</span>
+          <span className="font-bold text-blue-300 text-lg mt-1">{city}{country ? `, ${country}` : ""}</span>
+        </div>
+        {/* Right(Mobile only): Humidity, Time*/}
+        <div className="flex flex-col items-end text-right gap-1 min-w-[120px] mt-20 sm:mt-16 md:mt-24">
+          <span className="text-white text-lg font-semibold">{main}</span>
+          <span className="text-white/80 text-base font-medium">Humidity: {humidity}%</span>
+          <span className="text-white/80 text-base font-medium">{time}</span>
         </div>
       </div>
       {/* Children (Search History) */}
