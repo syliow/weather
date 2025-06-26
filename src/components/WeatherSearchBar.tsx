@@ -19,7 +19,7 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
 }) => {
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         onSearch();
       }}
@@ -33,7 +33,9 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
           <input
             type="text"
             value={city}
-            onChange={e => onCityChange(e.target.value)}
+            onChange={(e) => onCityChange(e.target.value)}
+            className="border border-gray-300 rounded px-2 py-2"
+            placeholder="Enter city"
           />
         </label>
         <label>
@@ -41,11 +43,13 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
           <input
             type="text"
             value={country}
-            onChange={e => onCountryChange(e.target.value)}
+            onChange={(e) => onCountryChange(e.target.value)}
           />
         </label>
-        <button type="submit">Search</button>
-        <button type="button" onClick={onClear}>
+        <button className="bg-blue-500" type="submit">
+          Search
+        </button>
+        <button type="button" onClick={onClear} className="ml-2 bg-gray-500">
           Clear
         </button>
       </div>

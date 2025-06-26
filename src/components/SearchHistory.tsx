@@ -6,13 +6,18 @@ interface HistoryItem {
   time: string;
 }
 
+interface SearchHistoryProps {
+  history: HistoryItem[];
+  onView: (index: number) => void;
+  onDelete: (index: number) => void;
+}
 
-const SearchHistory: React.FC<> = ({
+const SearchHistory: React.FC<SearchHistoryProps> = ({
   history,
   onView,
   onDelete,
 }) => (
-  <div className="p-4">
+  <div className="">
     <div className="text-lg font-semibold mb-2">Search History</div>
     <ol className="space-y-2">
       {history.map((item, idx) => (
@@ -25,14 +30,14 @@ const SearchHistory: React.FC<> = ({
           <div className="flex items-center gap-2">
             <span className="text-gray-500 text-sm">{item.time}</span>
             <button
-              className="hover:text-blue-600"
+              className="bg-blue-500"
               onClick={() => onView(idx)}
               title="View"
             >
               Search
             </button>
             <button
-              className="hover:text-red-600"
+              className="bg-blue-500"
               onClick={() => onDelete(idx)}
               title="Delete"
             >
