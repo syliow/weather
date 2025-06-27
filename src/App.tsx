@@ -3,78 +3,98 @@ import "./index.css";
 import React, { useState } from "react";
 import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
-import WeatherDisplay from "./components/WeatherDisplay";
+import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
+
+interface WeatherData {
+  name: string;
+  sys: { country: string };
+  weather: { main: string }[];
+  main: { temp: number; temp_min: number; temp_max: number; humidity: number };
+  dt: number;
+}
+
+interface HistoryItem {
+  city: string;
+  country: string;
+  time: string;
+}
 
 function App() {
   const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [weather, setWeather] = useState<any>(null);
-  console.log("🚀 ~ App ~ weather:", weather);
-  const [history, setHistory] = useState<any[]>([]);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
 
-  const handleSearch = async () => {
-    console.log("handleSearch called");
-    if (!city) return;
+  const handleSearch = async (cityParam?: string) => {
+    const searchCity = cityParam || city;
+    if (!searchCity) return;
     try {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather`,
         {
           params: {
-            q: `${city}`,
+            q: `${searchCity}`,
             appid: import.meta.env.VITE_OPEN_WEATHER_MAP_API_KEY,
             units: "metric",
           },
         }
       );
-      console.log("🚀 ~ handleSearch ~ res:", res);
       const data = res.data;
-      console.log("🚀 ~ handleSearch ~ data:", data);
       setWeather(data);
 
       setHistory([
-        { city, country, time: new Date().toLocaleTimeString() },
+        { city: searchCity, country: data.sys.country, time: new Date().toLocaleString() },
         ...history,
       ]);
-    } catch (error) {
-      console.log("🚀 ~ handleSearch ~ error:", error);
+      setCity("");
+    } catch {
       alert("City not found!");
     }
   };
 
-  const handleClear = () => {
-    setCity("");
-    setCountry("");
-    setWeather(null);
+  const handleViewHistory = (index: number) => {
+    const item = history[index];
+    setCity(item.city);
+    handleSearch(item.city);
+  };
+
+  const handleDeleteHistory = (index: number) => {
+    setHistory(history => history.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-2xl flex flex-col items-center">
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/bg-dark.png')" }}
+    >
+      <div className="w-full max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
-          country={country}
           onCityChange={setCity}
-          onCountryChange={setCountry}
           onSearch={handleSearch}
-          onClear={handleClear}
         />
         {weather && (
-          <WeatherDisplay
+          <WeatherToday
             city={weather.name}
             country={weather.sys.country}
             main={weather.weather[0].main}
-            description={weather.weather[0].description}
             temp={weather.main.temp}
+            tempMin={weather.main.temp_min}
+            tempMax={weather.main.temp_max}
             humidity={weather.main.humidity}
+            // Convert timestamp from open weather api to local date + time string
             time={new Date(weather.dt * 1000).toLocaleString()}
+            searchHistory={
+              history.length > 0 && (
+                <SearchHistory
+                  history={history}
+                  onView={handleViewHistory}
+                  onDelete={handleDeleteHistory}
+                />
+              )
+            }
           />
         )}
-        <SearchHistory
-          history={history}
-          onView={() => {}}
-          onDelete={() => {}}
-        />
       </div>
     </div>
   );

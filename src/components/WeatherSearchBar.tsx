@@ -2,57 +2,49 @@ import React from "react";
 
 interface WeatherSearchBarProps {
   city: string;
-  country: string;
   onCityChange: (value: string) => void;
-  onCountryChange: (value: string) => void;
   onSearch: () => void;
-  onClear: () => void;
 }
 
 const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
   city,
-  country,
   onCityChange,
-  onCountryChange,
   onSearch,
-  onClear,
 }) => {
   return (
     <form
+      className="w-full flex items-center gap-3 mb-6"
       onSubmit={(e) => {
         e.preventDefault();
         onSearch();
       }}
     >
-      <div>
-        <strong>Today's Weather</strong>
-      </div>
-      <div>
-        <label>
-          City:
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => onCityChange(e.target.value)}
-            className="border border-gray-300 rounded px-2 py-2"
-            placeholder="Enter city"
-          />
+      <div className="relative flex-1">
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => onCityChange(e.target.value)}
+          placeholder=" "
+          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 rounded-2xl outline-none  placeholder-transparent  border-none shadow-lg backdrop-blur-md"
+        />
+        <label className="absolute left-6 top-2 text-xs text-white/70 pointer-events-none ">
+          City or Country
         </label>
-        <label>
-          Country:
-          <input
-            type="text"
-            value={country}
-            onChange={(e) => onCountryChange(e.target.value)}
-          />
-        </label>
-        <button className="bg-blue-500" type="submit">
-          Search
-        </button>
-        <button type="button" onClick={onClear} className="ml-2 bg-gray-500">
-          Clear
-        </button>
       </div>
+      <button
+        type="submit"
+        className="px-6 py-4 rounded-2xl bg-[#28124D] text-white shadow-lg cursor-pointer"
+      >
+        <img src="/search_white.svg" alt="Search" className="w-8 h-8" />
+      </button>
+      {/* Hiding the clear button for now */}
+      {/* <button
+        type="button"
+        onClick={onClear}
+        className="px-6 py-4 rounded-2xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] transition-colors duration-200 text-white shadow-lg cursor-pointer"
+      >
+        Clear
+      </button> */}
     </form>
   );
 };

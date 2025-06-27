@@ -1,6 +1,7 @@
 import React from "react";
+import SearchHistoryItem from "./SearchHistoryItem";
 
-interface HistoryItem {
+export interface HistoryItem {
   city: string;
   country: string;
   time: string;
@@ -16,38 +17,26 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
   history,
   onView,
   onDelete,
-}) => (
-  <div className="">
-    <div className="text-lg font-semibold mb-2">Search History</div>
-    <ol className="space-y-2">
-      {history.map((item, idx) => (
-        <li key={idx} className="flex items-center justify-between pb-1">
-          <div>
-            <span className="font-medium">
-              {idx + 1}. {item.city}, {item.country}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-gray-500 text-sm">{item.time}</span>
-            <button
-              className="bg-blue-500"
-              onClick={() => onView(idx)}
-              title="View"
-            >
-              Search
-            </button>
-            <button
-              className="bg-blue-500"
-              onClick={() => onDelete(idx)}
-              title="Delete"
-            >
-              Delete
-            </button>
-          </div>
-        </li>
-      ))}
-    </ol>
-  </div>
-);
+}) => {
+  return (
+    <div className="w-full mt-8 rounded-2xl bg-[#1A1A1A80] p-6 backdrop-blur-md shadow-lg">
+      <div className="text-white text-lg font-semibold mb-4">
+        Search History
+      </div>
+      <ol className="flex flex-col gap-4">
+        {/* Component for SeperateHistoryItem */}
+        {history.map((item, index) => (
+          <SearchHistoryItem
+            key={index}
+            item={item}
+            index={index}
+            onView={onView}
+            onDelete={onDelete}
+          />
+        ))}
+      </ol>
+    </div>
+  );
+};
 
 export default SearchHistory;
