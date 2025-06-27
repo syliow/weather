@@ -39,6 +39,14 @@ UI Screenshots (Mobile View)
 (Desktop View)
 ![image](https://github.com/user-attachments/assets/4d0738db-1dbb-406c-9dfb-cbf510870768)
 
+### Thought Process 
+
+If you're curious about how I approached the task, you can explore the pull requests below. They include progress updates, challenges, and decisions made along the way:
+- https://github.com/syliow/weather/pull/1
+- https://github.com/syliow/weather/pull/2
+- https://github.com/syliow/weather/pull/3
+
+
 **Known Issues**
 - Minor differences from Figma design (e.g., button sizing, spacing, alignment)
 - Weather image is currently hardcoded and not dynamically rendered based on weather condition
