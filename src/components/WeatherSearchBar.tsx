@@ -25,15 +25,15 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
           value={city}
           onChange={(e) => onCityChange(e.target.value)}
           placeholder=" "
-          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-400 placeholder-transparent transition-all duration-200 border-none shadow-lg backdrop-blur-md"
+          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 rounded-2xl outline-none  placeholder-transparent  border-none shadow-lg backdrop-blur-md"
         />
-        <label className="absolute left-6 top-2 text-xs text-white/70 pointer-events-none transition-all duration-200">
+        <label className="absolute left-6 top-2 text-xs text-white/70 pointer-events-none ">
           City or Country
         </label>
       </div>
       <button
         type="submit"
-        className="px-6 py-4 rounded-2xl bg-[#28124D] transition-colors duration-200 text-white shadow-lg cursor-pointer"
+        className="px-6 py-4 rounded-2xl bg-[#28124D] text-white shadow-lg cursor-pointer"
       >
         <img src="/search_white.svg" alt="Search" className="w-8 h-8" />
       </button>
