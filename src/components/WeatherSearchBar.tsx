@@ -25,7 +25,7 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
           value={city}
           onChange={(e) => onCityChange(e.target.value)}
           placeholder=" "
-          className="w-full bg-[#1A1A1A80] text-white px-6 py-6 rounded-2xl shadow-lg backdrop-blur-md"
+          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 md:py-6 rounded-2xl shadow-lg backdrop-blur-md"
         />
         <label className="absolute left-6 top-2 text-xs text-white/40">
           City or Country
