@@ -1,10 +1,11 @@
 import "./index.css";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
+import { ERROR_EMPTY_INPUT, ERROR_INVALID_CITY } from "./helper/constant";
 
 interface WeatherData {
   name: string;
@@ -24,16 +25,22 @@ function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  // error can be a string (ex: "City not found!") or null (no error)
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (cityParam?: string) => {
+    // Fetch weather data for the given city and update state
     const searchCity = cityParam || city;
-    if (!searchCity) return;
+    if (!searchCity) {
+      setError(ERROR_EMPTY_INPUT);
+      return;
+    }
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather`,
+        "https://api.openweathermap.org/data/2.5/weather",
         {
           params: {
-            q: `${searchCity}`,
+            q: searchCity,
             appid: import.meta.env.VITE_OPEN_WEATHER_MAP_API_KEY,
             units: "metric",
           },
@@ -41,14 +48,18 @@ function App() {
       );
       const data = res.data;
       setWeather(data);
-
       setHistory([
-        { city: searchCity, country: data.sys.country, time: new Date().toLocaleString() },
+        {
+          city: searchCity,
+          country: data.sys.country,
+          time: new Date().toLocaleString(),
+        },
         ...history,
       ]);
       setCity("");
+      setError(null);
     } catch {
-      alert("City not found!");
+      setError(ERROR_INVALID_CITY);
     }
   };
 
@@ -58,21 +69,26 @@ function App() {
     handleSearch(item.city);
   };
 
+  // Remove a city from the search history when delete button is clicked
   const handleDeleteHistory = (index: number) => {
-    setHistory(history => history.filter((_, i) => i !== index));
+    setHistory((history) => history.filter((_, i) => i !== index));
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/bg-dark.png')" }}
-    >
-      <div className="w-full max-w-2xl mx-auto pt-8 px-2">
+    <div>
+      <div className="max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
           onCityChange={setCity}
           onSearch={handleSearch}
         />
+        {/* Error Message  */}
+        {error && (
+          <div className="text-red-500 text-md text-center mt-2 mb-2">
+            {error}
+          </div>
+        )}
+        {/* Only show weather card if we have data, otherwise hide it*/}
         {weather && (
           <WeatherToday
             city={weather.name}

@@ -1,48 +1,48 @@
-import type { HistoryItem } from "./SearchHistory";
+import type { SearchHistoryItemProps } from "../helper/types";
+import IconButton from "./IconButton";
 
-const SearchHistoryItem: React.FC<{
-  item: HistoryItem;
-  index: number;
-  onView: (index: number) => void;
-  onDelete: (index: number) => void;
-}> = ({ item, index, onView, onDelete }) => (
+const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({
+  item,
+  index,
+  onView,
+  onDelete,
+}) => (
   <li className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md gap-2 sm:gap-4">
-    <div className="flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-4 flex-1">
+    <div className="flex flex-col sm:flex-row sm:items-center flex-1 sm:gap-4">
+      {/* City and Country */}
       <div className="capitalize font-medium text-base flex flex-row items-center gap-2">
         {item.city}
         {item.country ? `, ${item.country}` : ""}
+        {/* Mobile: Icon buttons inline */}
         <span className="flex sm:hidden ml-auto gap-2">
-          <button
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80]  text-white border border-[#FFFFFF66]  cursor-pointer"
+          <IconButton
             onClick={() => onView(index)}
-          >
-            <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
-          </button>
-          <button
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] text-white border border-[#FFFFFF66]  cursor-pointer"
+            icon="/search_white.svg"
+            alt="Search"
+          />
+          <IconButton
             onClick={() => onDelete(index)}
-          >
-            <img src="/delete_white.svg" alt="Delete" className="w-5 h-5" />
-          </button>
+            icon="/delete_white.svg"
+            alt="Delete"
+          />
         </span>
       </div>
-      <span className="text-gray-300 text-sm whitespace-nowrap sm:ml-0 ml-1">
-        {item.time}
-      </span>
+      {/* Mobile: Date & Time is below city/country */}
+      <span className="text-white/50 text-sm sm:hidden">{item.time}</span>
     </div>
+    {/* Desktop: Time and Icon buttons at end of the row */}
     <div className="hidden sm:flex items-center gap-2">
-      <button
-        className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80]  text-white border border-[#FFFFFF66]  cursor-pointer"
+      <span className="text-white/50 text-sm mr-2">{item.time}</span>
+      <IconButton
         onClick={() => onView(index)}
-      >
-        <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
-      </button>
-      <button
-        className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80]  text-white border border-[#FFFFFF66]  cursor-pointer"
+        icon="/search_white.svg"
+        alt="Search"
+      />
+      <IconButton
         onClick={() => onDelete(index)}
-      >
-        <img src="/delete_white.svg" alt="Delete" className="w-5 h-5" />
-      </button>
+        icon="/delete_white.svg"
+        alt="Delete"
+      />
     </div>
   </li>
 );

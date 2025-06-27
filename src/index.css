@@ -1,4 +1,7 @@
 @import "tailwindcss";
 
-
-
+/* Temp fix for background image issue for long search history */
+body {
+  @apply font-sans min-h-screen bg-cover bg-center bg-no-repeat;
+  background-image: url("/bg-dark.png");
+}

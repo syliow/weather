@@ -1,10 +1,7 @@
 import React from "react";
+import type { WeatherSearchBarProps } from "../helper/types";
 
-interface WeatherSearchBarProps {
-  city: string;
-  onCityChange: (value: string) => void;
-  onSearch: () => void;
-}
+
 
 const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
   city,
@@ -25,26 +22,22 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
           value={city}
           onChange={(e) => onCityChange(e.target.value)}
           placeholder=" "
-          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 rounded-2xl outline-none  placeholder-transparent  border-none shadow-lg backdrop-blur-md"
+          className="w-full bg-[#1A1A1A80] text-white px-6 py-4 md:py-6 rounded-2xl shadow-lg backdrop-blur-md"
         />
-        <label className="absolute left-6 top-2 text-xs text-white/70 pointer-events-none ">
+        <label className="absolute left-6 top-2 text-xs text-white/40">
           City or Country
         </label>
       </div>
       <button
         type="submit"
-        className="px-6 py-4 rounded-2xl bg-[#28124D] text-white shadow-lg cursor-pointer"
+        className="p-3 rounded-2xl md:p-4 md:rounded-3xl bg-[#28124D] text-white shadow-lg cursor-pointer"
       >
-        <img src="/search_white.svg" alt="Search" className="w-8 h-8" />
+        <img
+          src="/search_white.svg"
+          alt="Search"
+          className="w-6 h-6 md:w-8 md:h-8"
+        />
       </button>
-      {/* Hiding the clear button for now */}
-      {/* <button
-        type="button"
-        onClick={onClear}
-        className="px-6 py-4 rounded-2xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] transition-colors duration-200 text-white shadow-lg cursor-pointer"
-      >
-        Clear
-      </button> */}
     </form>
   );
 };
