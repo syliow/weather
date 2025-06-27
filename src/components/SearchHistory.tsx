@@ -29,7 +29,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
             className="flex items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md gap-4"
           >
             <div className="flex items-center gap-4">
-              <div className="font-medium text-base">
+              <div className="capitalize font-medium text-base">
                 {item.city}
                 {item.country ? `, ${item.country}` : ""}
               </div>
