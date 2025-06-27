@@ -39,16 +39,16 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
             </div>
             <div className="flex items-center gap-2">
               <button
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-[#FFFFFF66] transition-colors duration-200 cursor-pointer"
                 onClick={() => onView(index)}
               >
-                1
+                <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
               </button>
               <button
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-white/10 transition-colors duration-200 cursor-pointer"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-[#FFFFFF66] transition-colors duration-200 cursor-pointer"
                 onClick={() => onDelete(index)}
               >
-                2
+                <img src="/delete_white.svg" alt="Delete" className="w-5 h-5" />
               </button>
             </div>
           </li>
