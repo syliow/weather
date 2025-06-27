@@ -5,7 +5,7 @@ import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
-import { ERROR_EMPTY_INPUT, ERROR_INVALID_CITY } from "./helper/Constant";
+import { ERROR_EMPTY_INPUT, ERROR_INVALID_CITY } from "./helper/constant";
 
 interface WeatherData {
   name: string;
