@@ -43,7 +43,7 @@ function App() {
       setWeather(data);
 
       setHistory([
-        { city: searchCity, country: data.sys.country, time: new Date().toLocaleTimeString() },
+        { city: searchCity, country: data.sys.country, time: new Date().toLocaleString() },
         ...history,
       ]);
       setCity("");
@@ -82,6 +82,7 @@ function App() {
             tempMin={weather.main.temp_min}
             tempMax={weather.main.temp_max}
             humidity={weather.main.humidity}
+            // Convert timestamp from open weather api to local date + time string
             time={new Date(weather.dt * 1000).toLocaleString()}
             searchHistory={
               history.length > 0 && (
