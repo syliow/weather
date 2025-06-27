@@ -15,7 +15,7 @@ const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({
   onDelete,
 }) => (
   <li className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md gap-2 sm:gap-4">
-    <div className="flex flex-col sm:flex-row sm:items-center flex-1 gap-0 sm:gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-center flex-1 sm:gap-4">
       {/* City and Country */}
       <div className="capitalize font-medium text-base flex flex-row items-center gap-2">
         {item.city}
@@ -34,11 +34,12 @@ const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({
           />
         </span>
       </div>
-      {/* Mobile: Date & Time is below city/country (The main difference) */}
-      <span className="text-white/50 text-sm">{item.time}</span>
+      {/* Mobile: Date & Time is below city/country */}
+      <span className="text-white/50 text-sm sm:hidden">{item.time}</span>
     </div>
-    {/* Desktop: Icon buttons at end of row */}
+    {/* Desktop: Time and Icon buttons at end of the row */}
     <div className="hidden sm:flex items-center gap-2">
+      <span className="text-white/50 text-sm mr-2">{item.time}</span>
       <IconButton
         onClick={() => onView(index)}
         icon="/search_white.svg"

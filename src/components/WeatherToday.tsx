@@ -91,6 +91,7 @@ function WeatherMainInfo({
   isMobile: boolean;
 }) {
   if (isMobile) {
+    // Mobile ui layout: left = temp/city, right = weather/humidity/time
     return (
       <div className="flex justify-between gap-4">
         <div className="flex flex-col items-start min-w-[120px]">
@@ -116,7 +117,7 @@ function WeatherMainInfo({
       </div>
     );
   }
-  // Desktop view
+  // Desktop ui layout: a row of weather details
   return (
     <>
       <span className="text-white text-lg mb-2">Today's Weather</span>

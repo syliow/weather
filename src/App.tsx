@@ -1,6 +1,6 @@
 import "./index.css";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
@@ -26,14 +26,15 @@ function App() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
   const handleSearch = async (cityParam?: string) => {
+    // Fetch weather data for the given city and update state
     const searchCity = cityParam || city;
     if (!searchCity) return;
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather`,
+        "https://api.openweathermap.org/data/2.5/weather",
         {
           params: {
-            q: `${searchCity}`,
+            q: searchCity,
             appid: import.meta.env.VITE_OPEN_WEATHER_MAP_API_KEY,
             units: "metric",
           },
@@ -41,9 +42,12 @@ function App() {
       );
       const data = res.data;
       setWeather(data);
-
       setHistory([
-        { city: searchCity, country: data.sys.country, time: new Date().toLocaleString() },
+        {
+          city: searchCity,
+          country: data.sys.country,
+          time: new Date().toLocaleString(),
+        },
         ...history,
       ]);
       setCity("");
@@ -58,21 +62,20 @@ function App() {
     handleSearch(item.city);
   };
 
+  // Remove a city from the search history when delete button is clicked
   const handleDeleteHistory = (index: number) => {
-    setHistory(history => history.filter((_, i) => i !== index));
+    setHistory((history) => history.filter((_, i) => i !== index));
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/bg-dark.png')" }}
-    >
-      <div className="w-full max-w-2xl mx-auto pt-8 px-2">
+    <div>
+      <div className="max-w-2xl mx-auto pt-8 px-2">
         <WeatherSearchBar
           city={city}
           onCityChange={setCity}
           onSearch={handleSearch}
         />
+        {/* Only show weather card if we have data, otherwise hide it*/}
         {weather && (
           <WeatherToday
             city={weather.name}
