@@ -26,7 +26,7 @@ const SearchHistoryItem: React.FC<{
           </button>
         </span>
       </div>
-      <span className="text-gray-300 text-sm whitespace-nowrap sm:ml-0 ml-1">
+      <span className="text-white/50 text-sm">
         {item.time}
       </span>
     </div>
