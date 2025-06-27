@@ -5,7 +5,13 @@ import axios from "axios";
 import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
-import { ERROR_EMPTY_INPUT, ERROR_INVALID_CITY } from "./helper/constant";
+import {
+  ERROR_API_LIMIT_PER_MINUTE,
+  ERROR_EMPTY_INPUT,
+  ERROR_GENERIC,
+  ERROR_INVALID_API_KEY,
+  ERROR_INVALID_CITY,
+} from "./helper/constant";
 import type { HistoryItem, WeatherData } from "./helper/types";
 
 function App() {
@@ -33,6 +39,7 @@ function App() {
           },
         }
       );
+
       const data = res.data;
       setWeather(data);
       setHistory([
@@ -45,8 +52,29 @@ function App() {
       ]);
       setCity("");
       setError(null);
-    } catch {
-      setError(ERROR_INVALID_CITY);
+    } catch (error) {
+      console.log(error, "error");
+      if (axios.isAxiosError(error) && error.response) {
+        switch (error.response.status) {
+          // https://openweathermap.org/faq#error404
+          // Error 404 is caused by invalid or incorrect city name
+          case 404:
+            setError(ERROR_INVALID_CITY);
+            break;
+          // https://openweathermap.org/faq#error401
+          // Error 401 is caused by wrong API key
+          case 401:
+            setError(ERROR_INVALID_API_KEY);
+            break;
+          // https://openweathermap.org/faq#error429
+          // Error 429 is caused by making more than 60 API calls per minute (free plan)
+          case 429:
+            setError(ERROR_API_LIMIT_PER_MINUTE);
+            break;
+          default:
+            setError(ERROR_GENERIC);
+        }
+      }
     }
   };
 
