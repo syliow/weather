@@ -4,14 +4,12 @@ interface WeatherSearchBarProps {
   city: string;
   onCityChange: (value: string) => void;
   onSearch: () => void;
-  onClear: () => void;
 }
 
 const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
   city,
   onCityChange,
   onSearch,
-  onClear,
 }) => {
   return (
     <form
@@ -37,7 +35,7 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
         type="submit"
         className="px-6 py-4 rounded-2xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] transition-colors duration-200 text-white shadow-lg cursor-pointer"
       >
-        Search
+        <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
       </button>
       {/* Hiding the clear button for now */}
       {/* <button
