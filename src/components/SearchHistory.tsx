@@ -1,6 +1,7 @@
 import React from "react";
+import SearchHistoryItem from "./SearchHistoryItem";
 
-interface HistoryItem {
+export interface HistoryItem {
   city: string;
   country: string;
   time: string;
@@ -23,35 +24,15 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
         Search History
       </div>
       <ol className="flex flex-col gap-4">
+        {/* Component for SeperateHistoryItem */}
         {history.map((item, index) => (
-          <li
+          <SearchHistoryItem
             key={index}
-            className="flex items-center justify-between bg-[#1A1A1A80] rounded-2xl px-6 py-4 text-white shadow-md gap-4"
-          >
-            <div className="flex items-center gap-4">
-              <div className="capitalize font-medium text-base">
-                {item.city}
-                {item.country ? `, ${item.country}` : ""}
-              </div>
-              <span className="text-gray-300 text-sm whitespace-nowrap">
-                {item.time}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-[#FFFFFF66] transition-colors duration-200 cursor-pointer"
-                onClick={() => onView(index)}
-              >
-                <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
-              </button>
-              <button
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] text-white border border-[#FFFFFF66] transition-colors duration-200 cursor-pointer"
-                onClick={() => onDelete(index)}
-              >
-                <img src="/delete_white.svg" alt="Delete" className="w-5 h-5" />
-              </button>
-            </div>
-          </li>
+            item={item}
+            index={index}
+            onView={onView}
+            onDelete={onDelete}
+          />
         ))}
       </ol>
     </div>
