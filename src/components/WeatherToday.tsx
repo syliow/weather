@@ -10,7 +10,7 @@ interface WeatherTodayProps {
   tempMax: number;
   humidity: number;
   time: string;
-  children?: ReactNode;
+  searchHistory?: ReactNode;
 }
 
 const WeatherToday: React.FC<WeatherTodayProps> = ({
@@ -22,7 +22,7 @@ const WeatherToday: React.FC<WeatherTodayProps> = ({
   tempMax,
   humidity,
   time,
-  children,
+  searchHistory,
 }) => {
   return (
     <div className="relative w-full rounded-2xl bg-[#1A1A1A80] p-8 mt-8 mb-8 shadow-lg backdrop-blur-md overflow-hidden min-h-[340px] flex flex-col">
@@ -84,8 +84,7 @@ const WeatherToday: React.FC<WeatherTodayProps> = ({
           </div>
         </div>
       </div>
-      {/* Children (Search History) */}
-      <div className="mt-8 z-20">{children}</div>
+      <div className="mt-8 z-20">{searchHistory}</div>
     </div>
   );
 };

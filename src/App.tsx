@@ -83,15 +83,16 @@ function App() {
             tempMax={weather.main.temp_max}
             humidity={weather.main.humidity}
             time={new Date(weather.dt * 1000).toLocaleString()}
-          >
-            {history.length > 0 && (
-              <SearchHistory
-                history={history}
-                onView={handleViewHistory}
-                onDelete={handleDeleteHistory}
-              />
-            )}
-          </WeatherToday>
+            searchHistory={
+              history.length > 0 && (
+                <SearchHistory
+                  history={history}
+                  onView={handleViewHistory}
+                  onDelete={handleDeleteHistory}
+                />
+              )
+            }
+          />
         )}
       </div>
     </div>
