@@ -100,7 +100,7 @@ function WeatherMainInfo({
           <span className="text-7xl font-extrabold text-white leading-none">
             {Math.round(temp)}°
           </span>
-          <span className="text-white text-base font-medium mt-1 mb-1">
+          <span className="text-white mt-1 mb-1">
             H: {Math.round(tempMax)}° L: {Math.round(tempMin)}°
           </span>
           <span className="font-bold text-white text-lg mt-1">
@@ -108,8 +108,8 @@ function WeatherMainInfo({
             {country ? `, ${country}` : ""}
           </span>
         </div>
-        <div className="flex flex-col items-end gap-1 min-w-[120px] mt-20 sm:mt-16">
-          <span className="text-white text-lg font-semibold">{main}</span>
+        <div className="flex flex-col items-end gap-1 min-w-[120px] mt-23 sm:mt-16">
+          <span className="text-white">{main}</span>
           <span className="text-white">Humidity: {humidity}%</span>
           <span className="text-white">{time}</span>
         </div>
@@ -150,7 +150,7 @@ function WeatherDetailsRow({
   main: string;
 }) {
   return (
-    <div className="text-white flex flex-row flex-wrap items-center gap-x-8 gap-y-2 w-full">
+    <div className="text-white flex flex-row items-center justify-between w-full">
       <span className="font-bold text-lg">
         {city}
         {country ? `, ${country}` : ""}
