@@ -33,9 +33,9 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
       </div>
       <button
         type="submit"
-        className="px-6 py-4 rounded-2xl bg-[#1A1A1A80] hover:bg-[#1A1A1Acc] transition-colors duration-200 text-white shadow-lg cursor-pointer"
+        className="px-6 py-4 rounded-2xl bg-[#28124D] transition-colors duration-200 text-white shadow-lg cursor-pointer"
       >
-        <img src="/search_white.svg" alt="Search" className="w-5 h-5" />
+        <img src="/search_white.svg" alt="Search" className="w-8 h-8" />
       </button>
       {/* Hiding the clear button for now */}
       {/* <button
