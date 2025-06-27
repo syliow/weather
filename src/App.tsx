@@ -6,10 +6,24 @@ import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
 
+interface WeatherData {
+  name: string;
+  sys: { country: string };
+  weather: { main: string }[];
+  main: { temp: number; temp_min: number; temp_max: number; humidity: number };
+  dt: number;
+}
+
+interface HistoryItem {
+  city: string;
+  country: string;
+  time: string;
+}
+
 function App() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<any>(null);
-  const [history, setHistory] = useState<any[]>([]);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
 
   const handleSearch = async (cityParam?: string) => {
     const searchCity = cityParam || city;
@@ -29,17 +43,13 @@ function App() {
       setWeather(data);
 
       setHistory([
-        { city: searchCity, time: new Date().toLocaleTimeString() },
+        { city: searchCity, country: data.sys.country, time: new Date().toLocaleTimeString() },
         ...history,
       ]);
-    } catch (error) {
+      setCity("");
+    } catch {
       alert("City not found!");
     }
-  };
-
-  const handleClear = () => {
-    setCity("");
-    setWeather(null);
   };
 
   const handleViewHistory = (index: number) => {
@@ -62,13 +72,12 @@ function App() {
           city={city}
           onCityChange={setCity}
           onSearch={handleSearch}
-          onClear={handleClear}
         />
         {weather && (
           <WeatherToday
             city={weather.name}
+            country={weather.sys.country}
             main={weather.weather[0].main}
-            description={weather.weather[0].description}
             temp={weather.main.temp}
             tempMin={weather.main.temp_min}
             tempMax={weather.main.temp_max}
