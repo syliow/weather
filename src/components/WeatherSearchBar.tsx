@@ -1,10 +1,7 @@
 import React from "react";
+import type { WeatherSearchBarProps } from "../helper/types";
 
-interface WeatherSearchBarProps {
-  city: string;
-  onCityChange: (value: string) => void;
-  onSearch: () => void;
-}
+
 
 const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
   city,

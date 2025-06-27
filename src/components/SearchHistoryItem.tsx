@@ -1,12 +1,5 @@
+import type { SearchHistoryItemProps } from "../helper/types";
 import IconButton from "./IconButton";
-import type { HistoryItem } from "./SearchHistory";
-
-interface SearchHistoryItemProps {
-  item: HistoryItem;
-  index: number;
-  onView: (index: number) => void;
-  onDelete: (index: number) => void;
-}
 
 const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({
   item,

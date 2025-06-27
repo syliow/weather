@@ -1,17 +1,6 @@
 import React from "react";
 import SearchHistoryItem from "./SearchHistoryItem";
-
-export interface HistoryItem {
-  city: string;
-  country: string;
-  time: string;
-}
-
-interface SearchHistoryProps {
-  history: HistoryItem[];
-  onView: (index: number) => void;
-  onDelete: (index: number) => void;
-}
+import type { SearchHistoryProps } from "../helper/types";
 
 const SearchHistory: React.FC<SearchHistoryProps> = ({
   history,

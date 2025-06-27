@@ -1,17 +1,6 @@
 import React from "react";
-import type { ReactNode } from "react";
 
-interface WeatherTodayProps {
-  city: string;
-  country: string;
-  main: string;
-  temp: number;
-  tempMin: number;
-  tempMax: number;
-  humidity: number;
-  time: string;
-  searchHistory?: ReactNode;
-}
+import type { WeatherTodayProps } from "../helper/types";
 
 const WeatherToday: React.FC<WeatherTodayProps> = ({
   city,
