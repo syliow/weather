@@ -2,6 +2,8 @@
 
 A responsive weather app built using **TypeScript**, **React**, and **Tailwind CSS**, powered by the [OpenWeatherMap API](https://openweathermap.org/api). Users can search for weather by city and view results in both desktop and mobile layouts.
 
+**Website Deployed to https://weather-shanyi.netlify.app/**
+
 ---
 
 ## Features
