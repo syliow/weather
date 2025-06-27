@@ -6,20 +6,7 @@ import WeatherSearchBar from "./components/WeatherSearchBar";
 import WeatherToday from "./components/WeatherToday";
 import SearchHistory from "./components/SearchHistory";
 import { ERROR_EMPTY_INPUT, ERROR_INVALID_CITY } from "./helper/constant";
-
-interface WeatherData {
-  name: string;
-  sys: { country: string };
-  weather: { main: string }[];
-  main: { temp: number; temp_min: number; temp_max: number; humidity: number };
-  dt: number;
-}
-
-interface HistoryItem {
-  city: string;
-  country: string;
-  time: string;
-}
+import type { HistoryItem, WeatherData } from "./helper/types";
 
 function App() {
   const [city, setCity] = useState("");

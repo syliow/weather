@@ -1,13 +1,6 @@
-import React from "react";
 import type { WeatherSearchBarProps } from "../helper/types";
 
-
-
-const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
-  city,
-  onCityChange,
-  onSearch,
-}) => {
+function WeatherSearchBar({ city, onCityChange, onSearch }: WeatherSearchBarProps) {
   return (
     <form
       className="w-full flex items-center gap-3 mb-6"
@@ -40,6 +33,6 @@ const WeatherSearchBar: React.FC<WeatherSearchBarProps> = ({
       </button>
     </form>
   );
-};
+}
 
 export default WeatherSearchBar;

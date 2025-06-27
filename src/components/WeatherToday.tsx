@@ -1,8 +1,6 @@
-import React from "react";
-
 import type { WeatherTodayProps } from "../helper/types";
 
-const WeatherToday: React.FC<WeatherTodayProps> = ({
+function WeatherToday({
   city,
   country,
   main,
@@ -12,7 +10,7 @@ const WeatherToday: React.FC<WeatherTodayProps> = ({
   humidity,
   time,
   searchHistory,
-}) => {
+}: WeatherTodayProps) {
   return (
     <div className="relative w-full rounded-2xl bg-[#1A1A1A80] p-5 mt-8 mb-8 shadow-lg backdrop-blur-md min-h-[340px] flex flex-col">
       {/* TODO: Replace this weather image based on weather*/}
@@ -55,7 +53,7 @@ const WeatherToday: React.FC<WeatherTodayProps> = ({
       {searchHistory && <div className="mt-8 z-20">{searchHistory}</div>}
     </div>
   );
-};
+}
 
 // Main weather info
 function WeatherMainInfo({

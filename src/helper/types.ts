@@ -8,7 +8,6 @@ export interface HistoryItem {
 }
 
 // Props for the main weather display card for displaying weather info (WeatherToday.tsx)
-// tldr: data obtained from https://openweathermap.org/api
 export interface WeatherTodayProps {
   city: string;
   country: string;
@@ -41,4 +40,19 @@ export interface SearchHistoryItemProps {
   index: number;
   onView: (index: number) => void;
   onDelete: (index: number) => void;
+}
+
+//data returned from https://openweathermap.org/api
+export interface WeatherData {
+  name: string;
+  sys: { country: string };
+  weather: { main: string }[];
+  main: { temp: number; temp_min: number; temp_max: number; humidity: number };
+  dt: number;
+}
+
+export interface IconButtonProps {
+  onClick: () => void;
+  icon: string;
+  alt: string;
 }
